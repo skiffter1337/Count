@@ -2,106 +2,103 @@ import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import Button from "./Components/Button";
 import {Input} from "./Components/Input";
-import {start} from "repl";
-
-type CheckedProps = 'add' | 'reset'
 
 function App() {
 
-    const [error, setError] = useState('')
+    const zero = 0
+    // Стартовое значение
+    const [startValue, setStartValue] = useState<number>(zero)
+    // Максимальное значение
+    const [maxValue, setMaxValue] = useState<number>(1)
+    // Вывод счетчик
+    const [count, setCount] = useState<number>(startValue)
+    // Вывод текста ошибки
+    const [error, setError] = useState<string>('')
 
+    const errorMessageStart = 'Error. The start value cannot be less than zero or greater than or equal to the maximum value.'
+    const errorMessageMax = 'Error. The maximum value cannot be less than zero or less than or equal to the initial value.'
 
-
-    const [startValue, setStartValue] = useState<number>(0)
-
+    // Если в поле инпут Start вводим правильное значение убираем надпись ошибки | передаем значение в максимальное
     const onChangeStartInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(startValue, maxValue)
-        console.log(e.currentTarget.valueAsNumber)
+        let targetStartInput = e.currentTarget.valueAsNumber
+        // Вывод текста ошибки по условию + удаление ошибки
+        targetStartInput >= maxValue || targetStartInput < zero ? setError(errorMessageStart) : setError('')
+        // Передаем стартовое значение в переменную
+        setStartValue(targetStartInput)
 
-        if(e.currentTarget.valueAsNumber >= maxValue || maxValue === startValue) {
-            setError('\n' +
-                'start value cannot be greater than or equal to the maximum')
-        }
-        if(startValue < maxValue) {
-            setError('')
-        }
-        /*const startEventValue = e.currentTarget.valueAsNumber
-        if(startEventValue >= zero) setStartValue(startEventValue)*/
-        setStartValue(e.currentTarget.valueAsNumber)
-
-
+        console.log("стартовое" + targetStartInput)
     }
 
-    const [maxValue, setMaxiValue] = useState<number>(0)
-
+    // Если в поле инпут Max вводим правильное значение убираем надпись ошибки | передаем значение в максимальное
     const onChangeMaxInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if(startValue <= e.currentTarget.valueAsNumber) {
-            setError('')
-        }
+        let targetMaxInput = e.currentTarget.valueAsNumber
+        // Вывод текста ошибки по условию + удаление ошибки
+        targetMaxInput <= startValue || targetMaxInput < zero ? setError(errorMessageMax) : setError('')
+        // Передаем максимальное значение в переменную
+        setMaxValue(targetMaxInput)
 
-        setMaxiValue(e.currentTarget.valueAsNumber)
+        console.log("Максимальное" + targetMaxInput)
     }
 
-
-
+    // Кнопка Set пере
     const addValueButton = () => {
             setStartValue(startValue)
-            setMaxiValue(maxValue)
+            setMaxValue(maxValue)
             setCount(startValue)
     }
 
-  const [count, setCount] = useState<number>(startValue)
-
-  const onClickAddHandler = () => {
+    // По клику на кнопку add прибавить 1
+    const onClickAddHandler = () => {
       if (count < maxValue) setCount(count + 1)
-  }
-
-  const onClickResetHandler = () => {
+    }
+    // По клику на кнопку reset вывести 0
+    const onClickResetHandler = () => {
     setCount(startValue)
-  }
+    }
 
-  const checkedDisabled = (children: CheckedProps) => children === 'add' && count === maxValue || children === 'reset' && count === startValue
+    // Дизейбл кнопки add по условию
+    const checkedDisabledAdd = count === maxValue || startValue < zero || maxValue < zero ? 'disabledBlue' : 'blue'
+    // Дизейбл кнопки reset по условию
+    const checkedDisabledReset = count === startValue ? 'disabledBlue' : 'blue'
+    // Дизейбл кнопки set по условию
+    const checkedDisabledSet = startValue >= maxValue || startValue < zero || maxValue < zero || maxValue <= startValue ? 'disabledPurple' : 'purple'
 
-    const checkedError = startValue > maxValue ? 'error' : ''
+    // Подсвечивание инпута красным по условию для стартового значения
+    const checkedErrorStart = startValue >= maxValue ? 'error' : '' || startValue < zero ? 'error' : ''
+    // Подсвечивание инпута красным по условию для стартового значения
+    const checkedErrorMax = maxValue <= startValue ? 'error' : '' || maxValue < zero ? 'error' : ''
+
 
   return (
     <div className="App">
         <div className="DivCount">
             <div className="BorderCount">
-                <div className="descriptionCount">first Counter</div>
+                <div className="descriptionCountAndSettings">first Counter</div>
                 <div className={"ValueAndCount"}>
                     <div className={"Value"}>value:</div>
                     <div className={"Count"}>{count}</div>
                 </div>
                 <div className={"ButtonsCount"}>
-                    <Button onClick={onClickAddHandler} color={'blue'} children={'add'} disabled={checkedDisabled('add')}/>
-                    <Button onClick={onClickResetHandler} color={'blue'} children={'reset'} disabled={checkedDisabled('reset')}/>
-                    <div className={"ButtonInput"}>
-                        <Button onClick={addValueButton} color={'purple'} children={'set'} />
-                    </div>
+                    <Button onClick={onClickAddHandler} color={checkedDisabledAdd} children={'add'} />
+                    <Button onClick={onClickResetHandler} color={checkedDisabledReset} children={'reset'} />
+                        <div className={"ButtonInput"}>
+                            <Button onClick={addValueButton} color={checkedDisabledSet} children={'set'}/>
+                        </div>
                 </div>
             </div>
         </div>
-
-        <div className={"InputsAndValue"}>
-            <div>start:</div>
-                <Input
-                    color={checkedError}
-                    onChange={onChangeStartInputHandler}
-                    value={startValue}
-                />
-            {error && <div className={"ErrorMassage"}>{error}</div>}
-        </div>
-
-        <div className={"InputsAndValue"}>
-            <div>max</div>
-                <Input
-                    onChange={onChangeMaxInputHandler}
-                    value={maxValue}
-                />
-        </div>
-
-
+        <div className="descriptionCountAndSettings">please enter correct Value</div>
+            <div className={"InputsMaxStartErrorMassage"}>
+                <div className={"ErrorMassage"}>{error}</div>
+                    <div className={"StartMax"}>
+                        <div className={"Max"}>start:</div>
+                        <div className={"Start"}>max:</div>
+                    </div>
+                        <div className={"Inputs"}>
+                            <Input color={checkedErrorStart} onChange={onChangeStartInputHandler} value={startValue}/>
+                            <Input color={checkedErrorMax} onChange={onChangeMaxInputHandler} value={maxValue}/>
+                        </div>
+            </div>
     </div>
   );
 }

@@ -18,7 +18,7 @@
     background: #1687f6;
 }
 
-.disabled {
+.disabledBlue {
     background: #0071e3;
     opacity: 0.5;
     pointer-events: none;
@@ -30,4 +30,10 @@
 
 .purple:hover {
     background: #7c6bd9;
+}
+
+.disabledPurple {
+    background: #7c6bd9;
+    opacity: 0.5;
+    pointer-events: none;
 }

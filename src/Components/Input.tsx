@@ -4,14 +4,12 @@ import s from './Input.module.css';
 type InputType = {
     onChange: (event: ChangeEvent<HTMLInputElement>) => void
     value: number
-    error?: string
-    styles?: any
     color?: any
 }
 
 export const Input:React.FC<InputType> = (props) => {
 
-    const {onChange, value, color, ...otherProps} = props
+    const {onChange, value, color} = props
 
     const finalInputClassName = `
     ${s.input}

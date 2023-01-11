@@ -5,18 +5,18 @@ type ButtonType = {
     onClick: ()=> void
     color?: string
     children?: React.ReactNode
-    disabled?: boolean
 }
 
 const Button:React.FC<ButtonType> = (props) => {
 
-    const {onClick, color, children, disabled, ...otherProps} = props
+    const {onClick, color, children} = props
 
     const finalButtonClassName = `
     ${s.button} 
-    ${color === 'blue' ? s.blue : ''}
+    ${color === 'blue' ? s.blue : 'disabledBlue'}
     ${color === 'purple' ? s.purple : ''}
-    ${disabled ? s.disabled : ''}
+    ${color === 'disabledBlue' ? s.disabledBlue : ''}
+    ${color === 'disabledPurple' ? s.disabledPurple : ''}
     `
 
     const callBackHandler = () => {
