@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 import Button from "./Components/Button";
 import {Input} from "./Components/Input";
@@ -16,6 +16,42 @@ function App() {
     const [error, setError] = useState<string>('')
 
     const [settings, setSetting] = useState<boolean>(false)
+
+    useEffect(()=> {
+        const numberAsString = localStorage.getItem('counterValue')
+        if (numberAsString) {
+            const newNumber = JSON.parse(numberAsString)
+            setCount(newNumber)
+        }
+    }, [])
+
+    useEffect(()=> {
+        localStorage.setItem('counterValue', JSON.stringify(count))
+    }, [count])
+
+    useEffect(()=> {
+        const numberAsStringStart = localStorage.getItem('counterValueStart')
+        if (numberAsStringStart) {
+            const newNumberStart = JSON.parse(numberAsStringStart)
+            setStartValue(newNumberStart)
+        }
+    }, [])
+
+    useEffect(()=> {
+        localStorage.setItem('counterValueStart', JSON.stringify(startValue))
+    }, [startValue])
+
+    useEffect(()=> {
+        const numberAsStringMax = localStorage.getItem('counterValueMax')
+        if (numberAsStringMax) {
+            const newNumberMax = JSON.parse(numberAsStringMax)
+            setMaxValue(newNumberMax)
+        }
+    }, [])
+
+    useEffect(()=> {
+        localStorage.setItem('counterValueMax', JSON.stringify(maxValue))
+    }, [maxValue])
 
     const errorMessageStart = 'Error. The start value cannot be less than zero or greater than or equal to the maximum value.'
     const errorMessageMax = 'Error. The maximum value cannot be less than zero or less than or equal to the initial value.'
