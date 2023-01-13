@@ -1,0 +1,96 @@
+.BorderCount {
+    border: 1px solid rgb(248, 248, 248);
+    box-shadow: 0 5px 20px rgba(29, 33, 38, 0.03), 0 1px 2px rgba(92, 99, 107, 0.1);
+    border-radius: 45px;
+    width: 40%;
+}
+
+.descriptionCountAndSettings {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.ValueAndCount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.Value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+    color: black;
+    margin-right: 5%;
+
+}
+
+.Count {
+    background-image: linear-gradient(180deg, #269ef1, #7036be);
+    color: transparent;
+    -webkit-background-clip: text;
+    overflow: hidden;
+    font-size: 86px;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.ButtonsCount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.InputsMaxStartErrorMassage {
+    display: flex;
+    justify-content: center;
+    margin-top: 31px;
+}
+
+.ErrorMassage {
+    display: flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #CC1439;
+    position: relative;
+    top: 15px;
+}
+
+.StartMax {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-right: 1%;
+    gap: 10px;
+}
+
+.Max {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+    color: black;
+}
+
+.Start {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+    color: black;
+}
+
+.Inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactNode} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Input.module.css';
 
 type InputType = {
